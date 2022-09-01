@@ -1,1 +1,1 @@
-# github_alert_bot
+Simple Telegram bot to send github updates to custom channel.

@@ -1,10 +1,11 @@
 package main
 
 import (
-	bot "github.com/artem-lifshits/github_alert_bot/bot"
-	handlers "github.com/artem-lifshits/github_alert_bot/handlers"
 	"log"
 	"net/http"
+
+	bot "github.com/artem-lifshits/github_alert_bot/bot"
+	handlers "github.com/artem-lifshits/github_alert_bot/handlers"
 )
 
 func main() {
@@ -12,7 +13,7 @@ func main() {
 
 	http.HandleFunc("/", handlers.WebhookCatcher)
 
-	err = http.ListenAndServe(":3535", nil)
+	err := http.ListenAndServe(":3535", nil)
 	if err != nil {
 		log.Fatal(err)
 	}

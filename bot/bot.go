@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-func InitializeBot() {
+func InitializeBot() tgbotapi.BotAPI {
 	bot, err := tgbotapi.NewBotAPI(os.Getenv("TELEGRAM_APITOKEN"))
 	if err != nil {
 		log.Panic(err)
@@ -18,4 +18,5 @@ func InitializeBot() {
 
 	u := tgbotapi.NewUpdate(0)
 	u.Timeout = 60
+	return *bot
 }

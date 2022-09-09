@@ -1,4 +1,4 @@
-module main.go
+module github.com/artem-lifshits/github_alert_bot
 
 go 1.18
 

@@ -2,7 +2,7 @@
 
 This is a simple github alert bot which sends github updates to telegram channel.
 
-4 alert actions are supported and can be increased by providing new functions in `pkg/conv/payload_conversion.go`.
+4 alert actions are supported at the moment.
 
 Webhook `Payload URL` has a fixed structure: `http://example.com:3535/webhooks`.
 

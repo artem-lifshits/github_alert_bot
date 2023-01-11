@@ -30,7 +30,7 @@ func NewHandlers(r *Hook) {
 }
 
 func WebhookCatcher(_ http.ResponseWriter, r *http.Request) {
-	fmt.Println("Hook incoming")
+	fmt.Println("Request incoming")
 	payload, err := Repo.Webhook.Parse(r, vars.GithubEvents...)
 	if err != nil {
 		if err == github.ErrEventNotFound {

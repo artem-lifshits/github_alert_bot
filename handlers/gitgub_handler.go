@@ -7,10 +7,17 @@ import (
 )
 
 type githubMessage struct {
-	Action string `json:"action"`
+	HookId     int        `json:"hook_id"`
+	Repository Repository `json:"repository"`
+}
+
+type Repository struct {
+	Name    string `json:"name"`
+	HtmlUrl string `json:"html_url"`
 }
 
 func WebhookCatcher(w http.ResponseWriter, r *http.Request) {
+	defer r.Body.Close()
 	log.Println("Incomming Request")
 	log.Println("Process JSON")
 	decoder := json.NewDecoder(r.Body)
@@ -20,6 +27,9 @@ func WebhookCatcher(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Println("Error: ", err)
 	}
-	//-- OutputEvent Source
-	log.Println("Action Name ", t.Action)
+	//-- OutputEvent Sources
+	log.Printf("%v", t)
+	headers := r.Header
+	log.Println(headers["X-Github-Event"][0])
+
 }

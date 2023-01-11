@@ -5,6 +5,7 @@ import (
 	"github.com/artem-lifshits/github_alert_bot/pkg/conv"
 	vars "github.com/artem-lifshits/github_alert_bot/variables"
 	"github.com/go-playground/webhooks/v6/github"
+	"log"
 	"net/http"
 )
 
@@ -12,11 +13,15 @@ var Repo *Hook
 
 type Hook struct {
 	Webhook *github.Webhook
+	Token   string
+	Channel int64
 }
 
-func NewHook(a *github.Webhook) *Hook {
+func NewHook(a *github.Webhook, b string, c int64) *Hook {
 	return &Hook{
 		Webhook: a,
+		Token:   b,
+		Channel: c,
 	}
 }
 
@@ -24,7 +29,7 @@ func NewHandlers(r *Hook) {
 	Repo = r
 }
 
-func WebhookCatcher(w http.ResponseWriter, r *http.Request) {
+func WebhookCatcher(_ http.ResponseWriter, r *http.Request) {
 	fmt.Println("Hook incoming")
 	payload, err := Repo.Webhook.Parse(r, vars.GithubEvents...)
 	if err != nil {
@@ -49,5 +54,14 @@ func WebhookCatcher(w http.ResponseWriter, r *http.Request) {
 	case github.CommitCommentPayload:
 		message = conv.ConvertCommitCommentPayload(payload)
 	}
-	fmt.Println(message)
+
+	chanMessage := Message{
+		ChatID: Repo.Channel,
+		Text:   message,
+	}
+
+	err = SendMessage(FormUrl(), &chanMessage)
+	if err != nil {
+		log.Fatal(err)
+	}
 }

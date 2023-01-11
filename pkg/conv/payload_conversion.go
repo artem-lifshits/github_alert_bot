@@ -7,7 +7,7 @@ import (
 
 func ConvertPushPayload(payload interface{}) (msg string) {
 	body := payload.(github.PushPayload)
-	msg = fmt.Sprintf("New push by '%s', created at: %s, commit: %v", body.Pusher.Name, body.HeadCommit.Timestamp, body.HeadCommit.URL)
+	msg = fmt.Sprintf("New push by '%s', created at: %s\n Commit: %v", body.Pusher.Name, body.HeadCommit.Timestamp, body.HeadCommit.URL)
 	return
 }
 

@@ -1,7 +1,15 @@
-# Github alert bot
+## Github alert bot
 
-This is a simple bot which sends notifications to telegram channel with github alerts.
+This is a simple github alert bot which sends github updates to telegram channel.
 
-Steps before running the bot:
-- add github webhook for your project (https://github.com/.../.../settings/hooks)
-- export your ``telegram api token`` (export TELEGRAM_APITOKEN="xxxxx")
+4 alert actions are supported and can be increased by providing new functions in `pkg/conv/payload_conversion.go`.
+
+Webhook `Payload URL` has a fixed structure: `http://example.com:3535/webhooks`.
+
+### Required environment variables
+
+```sh
+$ `export GITHUB_SECRET="xxxxx"`
+$ `export TELEGRAM_APITOKEN="xxxxx"`
+$ `export TELEGRAM_CHANNEL="xxxxx"`
+```
